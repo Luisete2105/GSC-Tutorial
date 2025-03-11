@@ -4,7 +4,7 @@
 # Links to the resources used in the videos:
 
 ## Programs
-[IDE](https://code.visualstudio.com)
+[Visual Studio Code](https://code.visualstudio.com)
 
 ## GSC DUMPS
 [World at War](https://github.com/plutoniummod/t4-scripts)
