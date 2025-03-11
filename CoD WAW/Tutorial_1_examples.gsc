@@ -66,7 +66,7 @@ onplayerspawned()
 	{
         self waittill( "spawned_player" );
         //self thread basic_variables();
-        self thread array_variables();
+        //self thread array_variables();
         //self thread struct_variables();
         //self thread funcptr_variables();
         //self thread operators_examples_1();
