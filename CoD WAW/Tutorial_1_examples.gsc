@@ -14,21 +14,17 @@
         - /bind f4 quit
 
     4º) Basics of programing:
-        - Basic variables.
+        - Basic variables (int, float, string).
         - Array variables.
         - Struct variables.
         - Function pointer variables.
 
     5º) Operators:
-        - Math: +, -, *, /, %, ++, --
+        - Math: +, -, *, /, %
         - Logic: if, else if, else, true, false, !, &&, ||, ==, <, >
-        - Loops: for, while, increment and decrement.
+        - Loops: for, while and increment(++)/decrement(--) operators.
 
-    6º) Loops:
-        - While
-        - for
-
-    7º) Symbols / words YOU MUST LEARN:
+    6º) Symbols / words YOU MUST LEARN:
         - Tokens: (), [], [[]], #.
         - Keywords: true, false, wait, undefined, if, else if, else, for, while, continue, break, return, level, self, thread, #include, notify, waittill, endon, .size.
 */
