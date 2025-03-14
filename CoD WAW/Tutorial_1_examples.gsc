@@ -181,7 +181,7 @@ operators_examples_2(){
     number_a = 7;
     number_b = 3;
 
-    /* IF, IF ELSE, ELSE statements
+    /* IF, ELSE IF, ELSE statements
 
         - IF 
             Syntax is:
@@ -189,9 +189,9 @@ operators_examples_2(){
                 your code   // THIS CODE IS ONLY RUN IS THE CONDITION IS TRUE
             }
 
-            You can add extra cases to evaluate with IF ELSE or only add an alternative case with ELSE.
+            You can add extra cases to evaluate with ELSE IF or only add an alternative case with ELSE.
 
-        - IF ELSE
+        - ELSE IF
             Syntax is:
             if( condition_a ){
                 your code a
