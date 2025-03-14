@@ -55,6 +55,7 @@ onplayerconnect()
 // This is called everytime a player spawns
 onplayerspawned()
 {
+ 
     level endon( "game_ended" );
     self endon( "disconnect" );
 
@@ -70,6 +71,7 @@ onplayerspawned()
         //self thread loop_example_1();
         //self thread loop_example_2();
     }
+
 }
 
 // END OF BASIC PLUTO SCRIPT
@@ -90,7 +92,7 @@ basic_variables(){
     */
 
     // Creating variables!
-    //undefined_var   = undefined;        // On other languages its refered as null or void.
+    undefined_var   = undefined;        // On other languages its refered as null or void.
     integer_number  = 7;
     float_number    = 7.7;
     bool_true       = true;             // true is the same as 1.
@@ -98,7 +100,7 @@ basic_variables(){
     string_chain    = "Hello World";    // They have ".size" property!
     
     // Printing variables!
-    //self iPrintLnBold("Undefined: " + undefined_var); // Undefined vars are not shown since they do not exist! its not a bug.
+    self iPrintLnBold("Undefined: " + undefined_var); // Undefined vars are not shown since they do not exist! its not a bug.
     self iPrintLnBold("Int: " + integer_number);
     self iPrintLnBold("Float: " + float_number);
     self iPrintLnBold("True: " + bool_true);
@@ -117,12 +119,12 @@ array_variables(){
     my_list[1] = 7.7;           // Asign to index '1' the value 7.7
     my_list[2] = "Siuuuu!";     // Asign to index '2' the value "Siuuuu!"
 
-    //my_list["a"] = "Letter A";    // Asign to index 'a' the value "Letter A"
-    //my_list["b"] = "Letter B";    // Asign to index 'b' the value "Letter B"
+    my_list["a"] = "Letter A";    // Asign to index 'a' the value "Letter A"
+    my_list["b"] = "Letter B";    // Asign to index 'b' the value "Letter B"
 
     self iPrintLnBold( "list.size: " + my_list.size ); // They have a ".size" property!
     self iPrintLnBold( "list[0]" + my_list[0] );
-    //self iPrintLnBold( "my_list[a]: " + my_list["a"] );
+    self iPrintLnBold( "my_list[a]: " + my_list["a"] );
 }
 
 // struct
@@ -278,6 +280,8 @@ loop_example_1(){
         self iPrintLnBold( i ); // Shows the current value of the iterator
     }
 
+    wait 0.5;
+
     self iPrintLnBold("Counting to 5 finished!");
 }
 
@@ -298,8 +302,8 @@ loop_example_2(){
     position = self.origin;
 
     while( position == self.origin ){
-        wait 1;
         self iPrintLnBold("You are not moving...");
+        wait 1;
     }
 
     self iPrintLnBold("You finally moved!");
@@ -311,5 +315,5 @@ loop_example_2(){
         ., (), [], {},[[]], #.
 
     Keywords are specific words that have a functionality, therefore you cant name a variable like any of this.
-        true, false, wait, undefined, if, else if, else, for, while, continue, break, return, level, self, thread, #include, notify, waittill, endon, .size.
+        true, false, wait, undefined, isdefined, if, else if, else, for, while, continue, break, return, level, self, thread, #include, notify, waittill, endon, .size.
 */
