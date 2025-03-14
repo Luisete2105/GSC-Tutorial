@@ -236,7 +236,7 @@ operators_examples_2(){
     // You can add an "=" after to indicate that the same value is included!
     // SMALLER OR EQUAL THAN
     if(number_a <= 7){
-        self iPrintLnBold( "A is SMALLER OR EQUAL THAN 3");
+        self iPrintLnBold( "A is SMALLER OR EQUAL THAN 7");
     }
 
     /* Logic operators
@@ -245,11 +245,11 @@ operators_examples_2(){
         !  Inverts the result of a logical condition, true is converted to false and vice versa
     */
 
-    if(number_b > 0 && number_b < 5){ // Number_b is GREATER than 10 AND Number_b is SMALLER than 10
-        self iPrintLnBold( "B is GREATER than 5 AND SMALLER than 10");
+    if(number_b > 0 && number_b < 5){ // Number_b is GREATER than 0 AND Number_b is SMALLER than 5
+        self iPrintLnBold( "B is GREATER than 0 AND SMALLER than 5");
     }
 
-    if(number_a < 0 || number_a != 3.14){ // Number_a SMALLER than 0 OR Number_a is NOT 3.14
+    if(number_a < 0 || number_a != 3.14){ // Number_a is SMALLER than 0 OR Number_a is NOT 3.14
         self iPrintLnBold( "A is SAMLLER than 0 OR is NOT 3.14");
     }
 }
