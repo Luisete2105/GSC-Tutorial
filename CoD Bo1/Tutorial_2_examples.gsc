@@ -26,7 +26,8 @@
 */
 
 //#include maps\_utility;
-//#include common_scripts\utility;
+#include common_scripts\utility;
+
 
 
 main()
@@ -63,7 +64,7 @@ onplayerspawned()
         //self thread global_scope();
         //self thread developer_vars();
         //self thread who_is_calling_this_function(); // lets go 1 more function deep to discover who is "self"
-        //self thread give_me_the_weapon( "ray_gun_zm" );
+        //self thread give_me_the_weapons( "ray_gun_zm", "thundergun_zm" );
         //self thread print_zombies_health();
         //self thread print_power_has_been_activated();
         //self thread basic_menu();
@@ -78,24 +79,24 @@ onplayerspawned()
 
 /* Variable scopes
 
+    *Local Variables
+        -Only exist withing their own functions.
+        -Their values are reseted on each function call.
+
+    *Global Variables
+        -Is shared between all scripts and functions.
+        -Its value is reseted when restarting a game, either fast_restart or map_restart.
+        -To access it you have to use the default game struct "level", for example level.script.
+
     *Developer Variables
         -It CAN NOT have a blank space within the name, for example "game speed" is not a valid name, "game_speed" is a valid name.
-        -If it doesnt exist a defualt value is set.
+        -If it doesnt exist a default value is set instead of undefined.
         -Values are preserved until the game is closed or another script script changes it.
         -To change its value you have to use the function SetDvar( dvar_name, value).
         -To get its value you have to use:
             GetDvar( "dvar_name" )         | returns a String   | Default: ""
             GetDvarInt( "dvar_name" )      | returns a Integer  | Default: 0
             GetDvarFloat( "dvar_name" )    | returns a Float    | Default: 0.0
-
-    *Global Variables
-        -Is shared between all scripts and functions.
-        -Its value is reseted when restarting a game, either fast_restart or map_restart.
-        -To access it you have to use the default game struct "level", for example level.script.
-    
-    *Local Variables
-        -Only exist withing their own functions.
-        -Their values are reseted on each function call.
 */
 
 // Notice how the first and second print are the same!
@@ -145,26 +146,27 @@ change_global_var(){
 developer_vars(){
 
     // Dvars return a string!. If the Dvar doesnt exist then its created, default value is an empty string "".
-    speed = GetDvar( "speed" ); 
-    //speed = int( speed );   // Converting string to int number
+    speed = GetDvar( "speed" );
+    speed = int( speed );   // Converting string to int number
     //speed = float( speed ); // Converting string to float number
 
     // We can use GetDvarInt to skip the conversion
     //speed = GetDvarInt( "speed" );    // If the Dvar doesnt exist then its created with default value 0.
 
     // Float conversion can also be skipped with GetDvarFloat
-    //my_float = GetDvarFloat( "speed" );    // If the Dvar doesnt exist then its created with default value 0, same as GetDvarInt
-
+    //speed = GetDvarFloat( "speed" );    // If the Dvar doesnt exist then its created with default value 0, same as GetDvarInt
+    //self IPrintLnBold( "Currently speed is: ^6" + speed );
 
     // Speed will be alternating between 1 and 2 each restart, we are checking 0 and "" because they are the default values.
-    if( speed == 1 || speed == 0 | speed == "" ){
+    if( speed == 1 || speed == 0 ){
+        self IPrintLnBold( "Currently speed is: ^6" + speed );
         speed = 2;
     }else{
         speed = 1;
     }
 
     self IPrintLnBold( "Setting speed to: ^4" + speed );
-    SetDvar("speed", speed);
+    SetDvar( "speed", speed);
     SetTimeScale( speed );
 }
 
@@ -185,11 +187,22 @@ who_is_printing_this_text(){
 
 
 // We are passing the weapon's name as a parameter, the only way to know what is its value is looking the line we are using this function
-give_me_the_weapon( weapon_name ){
+give_me_the_weapons( weapon_1, weapon_2 ){
 
-    self GiveWeapon( weapon_name );
+    // Wait for the player to get the starting pistol, otherwise samantha is going to steal all weapons
+    while( !self hasWeapon( "m1911_zm" ) ){
+        wait 0.05;
+    }
+
+    // Take the starting pistol from player
+    self TakeWeapon( "m1911_zm" );
+
+    // Give the weapons we want
+    self GiveWeapon( weapon_1 );
+    self GiveWeapon( weapon_2 );
     wait 0.05;
-    self switchToWeapon( weapon_name );
+    // Switch to first weapon so we dont get glitched
+    self switchToWeapon( weapon_1 );
 }
 
 
@@ -200,7 +213,7 @@ print_zombies_health(){
     self endon( "disconnect" );
 
     for(;;){
-        // We will wait 10s into the round to give zombies time to spawn
+        // We will wait 20s into the round to give zombies time to spawn
         for(i=20; i>0; i--){
             self IPrintLnBold(i); // Print the seconds left to wait
             wait 1;
@@ -256,10 +269,10 @@ print_power_has_been_activated(){
     self setMoveSpeedScale( 2 );
 
     // Calling the function directly from the script location!
-    level common_scripts\utility::flag_wait( "power_on" );
+    //level common_scripts\utility::flag_wait( "power_on" );
 
     // Calling the function withou indicating the path since its already done withing the #includes
-    //level flag_wait( "power_on" );
+    level flag_wait( "power_on" );
 
     self IPrintLnBold( "Power has been activated!" );
     return;
@@ -310,15 +323,15 @@ basic_menu(){
         //if( UseButtonPressed() ){ // This is a method! if you dont add the caller its going to crash even if "self" is a player
 
             // Inefficient
-            if( self.god_mode ){
+            /*if( self.god_mode ){
                 self.god_mode = false;  // Disable God Mode
             }else{
                 self thread inefficient_god_mode(); // Enable God Mode
                 //self inefficient_god_mode(); // If we dont thread it then we enter this function and since its an infinite loop we are getting stucked in it!
-            }
+            }*/
 
             // Efficient and easier to understand
-            //self thread efficient_god_mode();
+            self thread efficient_god_mode();
 
             while( self UseButtonPressed() ){
                 wait 0.05;
@@ -329,14 +342,14 @@ basic_menu(){
         if( self jumpButtonPressed() ){
 
             // Inefficient
-            if( self.infinite_ammo ){
+            /*if( self.infinite_ammo ){
                 self.infinite_ammo = false;  // Disable Infinite Ammo
             }else{
                 self thread inefficient_infinite_ammo(); // Enable Infinite Ammo
-            }
+            }*/
 
             // Efficient and easier to read
-            //self thread efficient_infinite_ammo();
+            self thread efficient_infinite_ammo();
 
             while( self jumpButtonPressed() ){
                 wait 0.05;
