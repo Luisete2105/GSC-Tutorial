@@ -16,7 +16,7 @@
         - Functions.
         - Method.
 
-    4º) Efficient api functions
+    4º) Efficient api methods
         - Notify.
         - Waittill.
         - Endon.
@@ -293,7 +293,7 @@ print_power_has_been_activated(){
         -Example: Self IPrintLnBold( text );
 */
 
-/* Efficienty functions
+/* Efficienty methods
     -Caller Waittill( text, arguments *optional* ): Stops the execution of the function until a notify with the same message AND caller is sent. As long as a notify for what you are waiting
                exists, you should use this since its more efficient. Some of them include extra parameters with extra data, if the notify doesnt include the data you expect then 
                a undefined value is sent.
