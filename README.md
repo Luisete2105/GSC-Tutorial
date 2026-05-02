@@ -11,5 +11,7 @@
 
 [Black Ops](https://github.com/plutoniummod/t5-scripts)
 
+[Black Ops II](https://github.com/plutoniummod/t6-scripts)
+
 ## Game Clients
 [Plutonium](https://plutonium.pw)
